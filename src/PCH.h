@@ -1,26 +1,28 @@
 #pragma once
 
-#pragma warning(push)
-#include <RE/Skyrim.h>
-#include <REL/Relocation.h>
-#include <SKSE/SKSE.h>
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
 
-#ifdef NDEBUG
-#	include <spdlog/sinks/basic_file_sink.h>
-#else
-#	include <spdlog/sinks/msvc_sink.h>
-#endif
-#pragma warning(pop)
+#include "RE/Skyrim.h"
+#include "SKSE/SKSE.h"
 
-using namespace std::literals;
-
-namespace logger = SKSE::log;
-
-namespace util
-{
-	using SKSE::stl::report_and_fail;
-}
+#include <spdlog/sinks/basic_file_sink.h>
+#include <xbyak/xbyak.h>
 
 #define DLLEXPORT __declspec(dllexport)
 
-#include "Plugin.h"
+namespace logger = SKSE::log;
+namespace string = SKSE::stl::string;
+using namespace std::literals;
+
+namespace stl
+{
+	template <class F, class T>
+	void write_vfunc()
+	{
+		REL::Relocation<std::uintptr_t> vtbl{ F::VTABLE[0] };
+		T::func = vtbl.write_vfunc(T::size, T::thunk);
+	}
+}
+
+#include "Version.h"

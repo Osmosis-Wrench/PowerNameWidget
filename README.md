@@ -1,25 +1,37 @@
-This is a basic plugin template for use with CommonLibSSE
+# Oxygen Meter
+
+SKSE plugin that repurposes the enchantment charge meter for an oxygen meter when underwater
 
 ## Requirements
+
 * [CMake](https://cmake.org/)
 	* Add this to your `PATH`
-* [The Elder Scrolls V: Skyrim Special Edition](https://store.steampowered.com/app/489830)
-	* Add the environment variable `Skyrim64Path` to point to the root installation of your game directory (the one containing `SkyrimSE.exe`).
+* [PowerShell](https://github.com/PowerShell/PowerShell/releases/latest)
 * [Vcpkg](https://github.com/microsoft/vcpkg)
 	* Add the environment variable `VCPKG_ROOT` with the value as the path to the folder containing vcpkg
-* [Visual Studio Community 2022](https://visualstudio.microsoft.com/)
+* [Visual Studio Community 2019](https://visualstudio.microsoft.com/)
 	* Desktop development with C++
+* [CommonLibSSE](https://github.com/powerof3/CommonLibSSE/tree/dev)
+	* You need to build from the powerof3/dev branch
+	* Add this as as an environment variable `CommonLibSSEPath`
+
+## Register Visual Studio as a Generator
+
+* Open `x64 Native Tools Command Prompt`
+* Run `cmake`
+* Close the cmd window
 
 ## Building
-```
-git clone https://github.com/Ryan-rsm-McKenzie/ExamplePlugin-CommonLibSSE
-cd ExamplePlugin-CommonLibSSE
-git submodule init
-git submodule update
-cmake --preset vs2022-windows
-cmake --build build --config Release
+
+git clone this url
+cd into folder
+
+```powershell
+
+cmake -B build -S .
+
 ```
 
-## Tips
-* Set `COPY_OUTPUT` to `ON` to automatically copy the built dll to the game directory, i.e. `cmake --preset vs2022-windows -DCOPY_OUTPUT=ON`
-* Build the `package` target to automatically build and zip up your dll in a ready-to-distribute format.
+## License
+
+[MIT](LICENSE)
