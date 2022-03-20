@@ -30,6 +30,8 @@ RE::BSEventNotifyControl MenuOpenCloseEventHandler::ProcessEvent(const RE::MenuO
 		} else if (a_event->menuName == RE::RaceSexMenu::MENU_NAME && !a_event->opening) {
 			aowMenu::Show();
 			logger::info("showing menu when racemenu closes");
+		} else if (a_event->menuName == RE::LoadingMenu::MENU_NAME && !a_event->opening) {
+			aowMenu::Show();
 		}
 	}
 
