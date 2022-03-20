@@ -1,6 +1,7 @@
 #include "SKSE/API.h"
 #include "aowMenu.h"
 #include "Events.h"
+#include "Settings.h"
 
 const SKSE::MessagingInterface* g_messaging = nullptr;
 
@@ -10,6 +11,7 @@ static void SKSEMessageHandler(SKSE::MessagingInterface::Message* message)
 	case SKSE::MessagingInterface::kDataLoaded:
 		aowMenu::Register();
 		MenuOpenCloseEventHandler::Register();
+		ItemEquipEventHandler::Register();
 		break;
 
 	case SKSE::MessagingInterface::kNewGame:
@@ -21,7 +23,6 @@ static void SKSEMessageHandler(SKSE::MessagingInterface::Message* message)
 		break;
 	}
 }
-
 
 extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a_skse, SKSE::PluginInfo* a_info)
 {
@@ -44,7 +45,7 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a
 	logger::info(FMT_STRING("{} v{}"), Version::PROJECT, Version::NAME);
 
 	a_info->infoVersion = SKSE::PluginInfo::kVersion;
-	a_info->name = "Example Plugin";
+	a_info->name = "osmo_powerNameWidget";
 	a_info->version = Version::MAJOR;
 
 	if (a_skse->IsEditor()) {
@@ -66,6 +67,8 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_s
 	logger::info("loaded plugin");
 
 	SKSE::Init(a_skse);
+
+	Settings::GetSingleton()->Load();
 
 	g_messaging = SKSE::GetMessagingInterface();
 	if (!g_messaging) {

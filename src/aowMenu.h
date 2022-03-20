@@ -5,8 +5,8 @@
 class aowMenu : RE::IMenu
 {
 public:
-	static constexpr const char* MENU_PATH = "ashofwartext";
-	static constexpr const char* MENU_NAME = "aowMenu";
+	static constexpr const char* MENU_PATH = "powerNameWidget";
+	static constexpr const char* MENU_NAME = "powerNameWidget";
 
 	aowMenu();
 

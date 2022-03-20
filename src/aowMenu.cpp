@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Settings.h"
 #include "aowMenu.h"
 
 aowMenu::aowMenu()
@@ -33,14 +33,15 @@ void aowMenu::Register()
 
 void aowMenu::Show()
 {
+	logger::info("showing aow");
 	auto msgQ = RE::UIMessageQueue::GetSingleton();
 	if (msgQ) {
 		msgQ->AddMessage(aowMenu::MENU_NAME, RE::UI_MESSAGE_TYPE::kShow, nullptr);
 		SKSE::GetTaskInterface()->AddUITask([]() {
-			aowMenu::SetName("butts");
-			aowMenu::SetLocation(100.0f, 200.0f, 0.0f, 100.0f, 100.0f);
+			aowMenu::SetLocation();
 		});
-	}
+	} else
+		logger::info("failed to show aow");
 }
 
 void aowMenu::Hide()
@@ -94,7 +95,6 @@ void aowMenu::SetLocation(float xpos, float ypos, float rot, float xscale, float
 
 void aowMenu::SetLocation()
 {
-#if false
 	RE::GPtr<RE::IMenu> menuObject = RE::UI::GetSingleton()->GetMenu(aowMenu::MENU_NAME);
 	if (!menuObject || !menuObject->uiMovie) {
 		logger::warn("AOWMenu tried to set location, but menuObject did not exist.");
@@ -108,20 +108,33 @@ void aowMenu::SetLocation()
 	const RE::GFxValue widget_yscale = Settings::GetSingleton()->widget_yscale;
 	RE::GFxValue posArray[5]{ widget_xpos, widget_ypos, widget_rotation, widget_xscale, widget_yscale };
 	menuObject->uiMovie->Invoke("ash.setLocation", nullptr, posArray, 5);
-#endif
 }
 
 void aowMenu::SetName()
 {
-#if false
-	RE::GPtr<RE::IMenu> menuObject = RE::UI::GetSingleton()->GetMenu(aowMenu::MENU_NAME);
+	auto ui = RE::UI::GetSingleton();
+	if (!ui) {
+		logger::warn("could not find ui");
+	}
+	RE::GPtr<RE::IMenu> menuObject = ui->GetMenu(aowMenu::MENU_NAME);
 	if (!menuObject || !menuObject->uiMovie) {
 		logger::warn("AOWMenu tried to set name, but menuObject did not exist.");
 		return;
 	}
-	RE::GFxValue newName = get name somehow, maybe have it be a static c_str somewhere?
-	menuObject->uiMovie->Invoke("ash.setText", nullptr, &newName, 1);
-#endif
+	auto player = RE::PlayerCharacter::GetSingleton();
+	if (player) {
+		auto power = player->selectedPower;
+		if (power) {
+			auto powerName = power->As<RE::SpellItem>()->fullName.c_str();
+			RE::GFxValue newName = powerName;
+			menuObject->uiMovie->Invoke("ash.setText", nullptr, &newName, 1);
+			if (!ui->IsMenuOpen(RE::MagicMenu::MENU_NAME)) {
+				aowMenu::toggleVisibility(true);
+			}
+		} else {
+			aowMenu::toggleVisibility(false);
+		}
+	}
 }
 
 #if false
@@ -138,5 +151,4 @@ void aowMenu::AdvanceMovie(float a_interval, std::uint32_t a_currentTime)
 	//aowMenu::Update();
 	RE::IMenu::AdvanceMovie(a_interval, a_currentTime);
 }
-
 #endif

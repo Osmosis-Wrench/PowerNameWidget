@@ -1,7 +1,7 @@
 {
-  "name": "exampleplugin",
+  "name": "powernamewidget",
   "version-string": "1.0.0",
-  "description": "Example Plugin for CommonLib PO3 Fork",
+  "description": "Shows your currently active power's name in a scaleform widget.",
   "homepage": "",
   "license": "MIT",
   "dependencies": [
@@ -9,7 +9,7 @@
     "simpleini",
     "spdlog",
     "xbyak",
-	"rsm-binary-io"
+	  "rsm-binary-io"
   ],
   "builtin-baseline":"bba8794b82a0f44b8709f294850a2c8e96b61415",
   "overrides": [

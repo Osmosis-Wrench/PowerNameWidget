@@ -32,7 +32,7 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>" CACHE STR
 # ---- Project ----
 
 project(
-	ExamplePlugin
+	osmo_powerNameWidget
 	VERSION 1.0.0
 	LANGUAGES CXX
 )
@@ -123,7 +123,7 @@ add_library(
 	${CMAKE_CURRENT_BINARY_DIR}/include/Version.h
 	${CMAKE_CURRENT_BINARY_DIR}/version.rc
 	.clang-format
- "src/aowMenu.cpp" "src/Events.cpp")
+ "src/aowMenu.cpp" "src/Events.cpp"  "src/Settings.h")
 
 target_compile_features(
 	${PROJECT_NAME}
