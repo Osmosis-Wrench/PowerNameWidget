@@ -70,10 +70,12 @@ RE::BSEventNotifyControl ItemEquipEventHandler::ProcessEvent(const RE::TESEquipE
 	if (a_event) {
 		auto player = RE::PlayerCharacter::GetSingleton();
 		if (player && RE::TESForm::LookupByID(a_event->baseObject)->GetName() != NULL) {
-			if (RE::TESForm::LookupByID(a_event->baseObject) == player->selectedPower) {
-				SKSE::GetTaskInterface()->AddUITask([]() {
-					aowMenu::SetName();
-				});
+			if (player->selectedPower != NULL) {
+				if (RE::TESForm::LookupByID(a_event->baseObject) == player->selectedPower) {
+					SKSE::GetTaskInterface()->AddUITask([]() {
+						aowMenu::SetName();
+					});
+				}
 			}
 		}
 	}
