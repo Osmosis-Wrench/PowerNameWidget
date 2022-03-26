@@ -16,7 +16,7 @@ public:
 	static void SetName();
 	static void SetName(RE::GFxValue newName);
 	static void SetLocation();
-	static void SetLocation(float xpos, float ypos, float rot, float xscale, float yscale);
+	static void SetLocation(float xpos, float ypos, float rot, float xscale, float yscale, float textxpos, float textypos);
 	static void toggleVisibility(bool mode);
 
 	static RE::stl::owner<RE::IMenu*> Creator() { return new aowMenu(); }

@@ -18,20 +18,24 @@ public:
 
 		ini.LoadFile(path);
 
-		detail::get_value(ini, widget_xpos, "Widget", "Widget X Position", ";The X Position for the widget, default is 200.000000");
-		detail::get_value(ini, widget_ypos, "Widget", "Widget Y Position", ";The Y Position for the widget, default is 200.000000");
+		detail::get_value(ini, widget_xpos, "Widget", "Widget X Position", ";The X Position for the widget, default is 80.000000");
+		detail::get_value(ini, widget_ypos, "Widget", "Widget Y Position", ";The Y Position for the widget, default is 170.000000");
 		detail::get_value(ini, widget_rotation, "Widget", "Widget Rotation", ";The rotation for the widget, default is 0.000000");
 		detail::get_value(ini, widget_xscale, "Widget", "Widget X scale", ";The X scale of the widget, default is 100.000000");
 		detail::get_value(ini, widget_yscale, "Widget", "Widget Y scale", ";The Y scale of the widget, default is 100.000000");
+		detail::get_value(ini, text_xpos, "Widget", "Text X Position modifier", ";The X Position modifier for the text to allow for better aligning custom fonts, default is 0.000000");
+		detail::get_value(ini, text_ypos, "Widget", "Text Y Position modifier", ";The Y Position modifier for the text to allow for better aligning custom fonts, default is 0.000000");
 
 		ini.SaveFile(path);
 	}
 
-	float widget_xpos{ 200.0f };
-	float widget_ypos{ 200.0f };
+	float widget_xpos{ 80.0f };
+	float widget_ypos{ 170.0f };
 	float widget_rotation{ 0.0f };
 	float widget_xscale{ 100.0f };
 	float widget_yscale{ 100.0f };
+	float text_xpos{ 0.0f };
+	float text_ypos{ 0.0f };
 
 private:
 	struct detail

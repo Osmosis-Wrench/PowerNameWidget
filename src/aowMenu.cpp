@@ -77,7 +77,7 @@ void aowMenu::SetName(RE::GFxValue newName)
 }
 
 // overload to allow you to set location manually
-void aowMenu::SetLocation(float xpos, float ypos, float rot, float xscale, float yscale)
+void aowMenu::SetLocation(float xpos, float ypos, float rot, float xscale, float yscale, float textxpos, float textypos)
 {
 	RE::GPtr<RE::IMenu> menuObject = RE::UI::GetSingleton()->GetMenu(aowMenu::MENU_NAME);
 	if (!menuObject || !menuObject->uiMovie) {
@@ -89,8 +89,10 @@ void aowMenu::SetLocation(float xpos, float ypos, float rot, float xscale, float
 	const RE::GFxValue widget_rotation = rot;
 	const RE::GFxValue widget_xscale = xscale;
 	const RE::GFxValue widget_yscale = yscale;
-	RE::GFxValue posArray[5]{ widget_xpos, widget_ypos, widget_rotation, widget_xscale, widget_yscale };
-	menuObject->uiMovie->Invoke("ash.setLocation", nullptr, posArray, 5);
+	const RE::GFxValue text_xpos = textxpos;
+	const RE::GFxValue text_ypos = textypos;
+	RE::GFxValue posArray[7]{ widget_xpos, widget_ypos, widget_rotation, widget_xscale, widget_yscale, text_xpos, text_ypos };
+	menuObject->uiMovie->Invoke("ash.setLocation", nullptr, posArray, 7);
 }
 
 void aowMenu::SetLocation()
@@ -106,8 +108,10 @@ void aowMenu::SetLocation()
 	const RE::GFxValue widget_rotation = Settings::GetSingleton()->widget_rotation;
 	const RE::GFxValue widget_xscale = Settings::GetSingleton()->widget_xscale;
 	const RE::GFxValue widget_yscale = Settings::GetSingleton()->widget_yscale;
-	RE::GFxValue posArray[5]{ widget_xpos, widget_ypos, widget_rotation, widget_xscale, widget_yscale };
-	menuObject->uiMovie->Invoke("ash.setLocation", nullptr, posArray, 5);
+	const RE::GFxValue text_xpos = Settings::GetSingleton()->text_xpos;
+	const RE::GFxValue text_ypos = Settings::GetSingleton()->text_ypos;
+	RE::GFxValue posArray[7]{ widget_xpos, widget_ypos, widget_rotation, widget_xscale, widget_yscale, text_xpos, text_ypos };
+	menuObject->uiMovie->Invoke("ash.setLocation", nullptr, posArray, 7);
 }
 
 void aowMenu::SetName()

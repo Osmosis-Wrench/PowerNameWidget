@@ -2,6 +2,7 @@
 #include "Events.h"
 #include "RE/U/UI.h"
 #include "aowMenu.h"
+#include "Settings.h"
 #include "string.h"
 #include "RE/T/TESForm.h"
 
@@ -32,6 +33,10 @@ RE::BSEventNotifyControl MenuOpenCloseEventHandler::ProcessEvent(const RE::MenuO
 			logger::info("showing menu when racemenu closes");
 		} else if (a_event->menuName == RE::LoadingMenu::MENU_NAME && !a_event->opening) {
 			aowMenu::Show();
+		}
+		if (a_event->menuName == RE::JournalMenu::MENU_NAME) {
+			Settings::GetSingleton()->Load();
+			aowMenu::SetLocation();
 		}
 	}
 
