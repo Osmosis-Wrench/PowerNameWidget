@@ -129,8 +129,15 @@ void aowMenu::SetName()
 	if (player) {
 		auto power = player->selectedPower;
 		if (power) {
-			auto powerName = power->As<RE::SpellItem>()->fullName.c_str();
-			RE::GFxValue newName = powerName;
+			RE::GFxValue newName;
+			if (auto powerObj = power->As<RE::SpellItem>(); powerObj && Settings::GetSingleton()->widget_showPowers) {
+				newName = powerObj->fullName.c_str();
+			} else if (auto shoutObj = power->As<RE::TESShout>(); shoutObj && Settings::GetSingleton()->widget_showShouts) {
+				newName = shoutObj->fullName.c_str();
+			} else {
+				aowMenu::toggleVisibility(false);
+				return;
+			}
 			menuObject->uiMovie->Invoke("ash.setText", nullptr, &newName, 1);
 			if (!ui->IsMenuOpen(RE::MagicMenu::MENU_NAME)) {
 				aowMenu::toggleVisibility(true);

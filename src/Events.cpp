@@ -36,7 +36,9 @@ RE::BSEventNotifyControl MenuOpenCloseEventHandler::ProcessEvent(const RE::MenuO
 		}
 		if (a_event->menuName == RE::JournalMenu::MENU_NAME) {
 			Settings::GetSingleton()->Load();
-			aowMenu::SetLocation();
+			SKSE::GetTaskInterface()->AddUITask([]() {
+				aowMenu::SetLocation();
+			});
 		}
 	}
 

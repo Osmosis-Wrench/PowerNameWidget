@@ -18,6 +18,8 @@ public:
 
 		ini.LoadFile(path);
 
+		detail::get_value(ini, widget_showPowers, "Widget", "Show Powers", ";Whether or not to show the name of currently selected power, default is true");
+		detail::get_value(ini, widget_showShouts, "Widget", "Show Shouts", ";Whether or not to show the name of currently selected shout, default is true");
 		detail::get_value(ini, widget_xpos, "Widget", "Widget X Position", ";The X Position for the widget, default is 80.000000");
 		detail::get_value(ini, widget_ypos, "Widget", "Widget Y Position", ";The Y Position for the widget, default is 170.000000");
 		detail::get_value(ini, widget_rotation, "Widget", "Widget Rotation", ";The rotation for the widget, default is 0.000000");
@@ -29,6 +31,8 @@ public:
 		ini.SaveFile(path);
 	}
 
+	bool widget_showPowers = true;
+	bool widget_showShouts = true;
 	float widget_xpos{ 80.0f };
 	float widget_ypos{ 170.0f };
 	float widget_rotation{ 0.0f };
